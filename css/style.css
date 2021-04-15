@@ -185,10 +185,10 @@ div.canvas-holder {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
+  height: 100%;
 }
 
-div.canvas-holder canvas {
+div.canvas-holder xcanvas {
   position: fixed;
   top: 50%;
   left: 50%;
