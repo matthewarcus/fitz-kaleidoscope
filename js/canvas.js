@@ -10,8 +10,8 @@ const calcSize = function () {
 
   canvas.width = ww * dpi
   canvas.height = wh * dpi
-  canvas.style.width = canvas.width + "px"
-  canvas.style.height = canvas.height + "px"
+  canvas.style.width = ww + "px"
+  canvas.style.height = wh + "px"
 }
 
 calcSize()
