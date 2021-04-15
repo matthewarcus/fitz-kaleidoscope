@@ -188,11 +188,11 @@ div.canvas-holder {
   height: 100%;
 }
 
-div.canvas-holder xcanvas {
+div.canvas-holder canvas {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(calc(-50% - 100px), -50%);
+  xtop: 50%;
+  xleft: 50%;
+  xtransform: translate(calc(-50% - 100px), -50%);
 }
 
 .logo {
