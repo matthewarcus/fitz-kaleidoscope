@@ -8,10 +8,10 @@ const calcSize = function () {
 
   let s = Math.max(wh, ww + 200)
 
-  canvas.width = s * dpi
-  canvas.height = s * dpi
-  canvas.style.width = s + "px"
-  canvas.style.height = s + "px"
+  canvas.width = ww * dpi
+  canvas.height = wh * dpi
+  canvas.style.width = canvas.width + "px"
+  canvas.style.height = canvas.height + "px"
 }
 
 calcSize()
@@ -21,7 +21,7 @@ window.addEventListener("resize", function () {
 })
 
 
-const images = ["images/herm-gr-20-1850.jpg", "images/breughel-1192.jpg", "images/titian-941.jpg", "images/redon-pd-28-1964.jpg", "images/rembrandt-p-2255-r.jpg"]
+const images = ["images/herm.jpg", "images/breughel.jpg", "images/titian.jpg", "images/redon.jpg", "images/rembrandt.jpg", "images/demorgan.jpg"]
 let current = 0    
 
 canvas.addEventListener("click", function () {

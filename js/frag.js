@@ -3,7 +3,7 @@ const frag = `
 precision highp float;
 #endif
 
-#define SEGMENTS 14.0  
+#define SEGMENTS 10.0  
 #define PI 3.141592653589
    
 uniform float u_time;
@@ -16,15 +16,15 @@ varying vec2 v_texcoord;
 
 void main(void)
 {
-    vec2 uv = v_texcoord;
-    uv *= 2.0;
-    uv -= 1.0;
+    vec2 uv = (2.0*gl_FragCoord.xy-u_resolution)/u_resolution.y;
+    //vec2 uv = (gl_FragCoord.xy-u_resolution)/u_resolution.y;
 
-		// make mouse
-		vec2 mouse = u_mouse / u_resolution; 
-     
+    // make mouse
+    // vec2 mouse = u_mouse / u_resolution.y; 
+    vec2 mouse = (2.0*u_mouse.xy-u_resolution)/u_resolution.y;
+
     //get angle and radius
-    float radius = length(uv * mix(1.0, 2.0, mouse.y));
+    float radius = length(uv);
     float angle = atan(uv.y, uv.x);
      
     // get a segment 
@@ -32,22 +32,17 @@ void main(void)
     angle *= SEGMENTS; 
     
     // repeat segment
-    if (mod(angle, 2.0) >= 1.0) {
-    angle = fract(angle);
-    } else {
-    angle = 1.0 - fract(angle);
-    }
+    angle = mod(angle,2.0);
+    angle = min(angle,2.0-angle);
     angle += u_time * 0.3;
-		angle += mouse.x;          
 
     // unsquash segment
     angle /= SEGMENTS;
-    angle *= PI * 2.0;
+    angle *= PI;
     
-    vec2 point = vec2(radius * cos(angle), radius * sin(angle));
+    vec2 point = 0.618*vec2(radius * cos(angle), radius * sin(angle));
+    point += mouse;
     point = fract(point);
-    
-    
     vec4 color = texture2D(image, point);
     
     gl_FragColor = color;
