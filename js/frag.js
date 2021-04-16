@@ -14,8 +14,16 @@ uniform sampler2D image;
 
 varying vec2 v_texcoord; 
 
+// Rotate vector p by angle t.
+vec2 rotate(vec2 p, float t) {
+  return cos(t)*p + sin(t)*vec2(-p.y,p.x);
+}
+
 void main(void)
 {
+    // Get pixel position from fragment coordinate
+    // This puts (0,0) in centre of the screen,
+    // with top of screen at y=0;
     vec2 uv = (2.0*gl_FragCoord.xy-u_resolution)/u_resolution.y;
     //vec2 uv = (gl_FragCoord.xy-u_resolution)/u_resolution.y;
 
@@ -34,14 +42,19 @@ void main(void)
     // repeat segment
     angle = mod(angle,2.0);
     angle = min(angle,2.0-angle);
-    angle += u_time * 0.3;
+    //angle += u_time * 0.3;
 
     // unsquash segment
     angle /= SEGMENTS;
     angle *= PI;
     
     vec2 point = 0.618*vec2(radius * cos(angle), radius * sin(angle));
-    point += mouse;
+    // Rotate around centre of texture
+    point -= 0.5;
+    point = rotate(point,-0.1*u_time);
+    point += 0.5;
+    point += mouse; // Add in mouse offset
+
     point = fract(point);
     vec4 color = texture2D(image, point);
     

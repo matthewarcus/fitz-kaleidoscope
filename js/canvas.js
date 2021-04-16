@@ -6,8 +6,6 @@ const calcSize = function () {
   let wh = window.innerHeight
   let dpi = window.devicePixelRatio
 
-  let s = Math.max(wh, ww + 200)
-
   canvas.width = ww * dpi
   canvas.height = wh * dpi
   canvas.style.width = ww + "px"
@@ -23,15 +21,9 @@ window.addEventListener("resize", function () {
 
 const images = ["images/herm.jpg", "images/breughel.jpg", "images/titian.jpg", "images/redon.jpg", "images/rembrandt.jpg", "images/demorgan.jpg"]
 let current = 0    
-
-canvas.addEventListener("click", function () {
-  current += 1
-
-  if (current >= images.length) {
-    current = 0
-  }
-
-  sandbox.setUniform("image", images[current])
+canvas.addEventListener("click", function (event) {
+    current = (current+1)%images.length;
+    sandbox.setUniform("image", images[current]);
 })
 
 sandbox.setUniform("image", images[current])
